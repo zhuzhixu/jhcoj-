@@ -81,6 +81,7 @@ $MSG_Compile_OK="人品问题-愚人节快乐";
 	$MSG_TITLE="标题";
 	$MSG_SOURCE="来源/分类";
 	$MSG_SUBMIT="提交";
+	$MSG_RESET="重置";
 	
 	//ranklist.php
 	$MSG_Number="名次";
@@ -126,6 +127,7 @@ $MSG_Compile_OK="人品问题-愚人节快乐";
 	$MSG_EXPORT="导出";
 	$MSG_UPDATE_DATABASE="更新数据库";
 	$MSG_ONLINE="在线";
+	$MSG_SET_LOGIN_IP="指定登录IP";
   //contest
   $MSG_PRIVATE_WARNING="比赛尚未开始或私有，不能查看题目。";
   $MSG_WATCH_RANK="点击这里查看做题排名。";
@@ -133,6 +135,7 @@ $MSG_Compile_OK="人品问题-愚人节快乐";
   $MSG_Private="私有";
   $MSG_Running="运行中";
   $MSG_Start="开始于";
+  $MSG_End="结束于";
   $MSG_TotalTime="总赛时";
   $MSG_LeftTime="剩余";
   $MSG_Ended="已结束";
@@ -140,6 +143,7 @@ $MSG_Compile_OK="人品问题-愚人节快乐";
   $MSG_JUDGER="判题机";
   $MSG_SOURCE_NOT_ALLOWED_FOR_EXAM="考试期间，不能查阅以前提交的代码。";
   $MSG_BBS_NOT_ALLOWED_FOR_EXAM="考试期间,讨论版禁用。";
+  $MSG_MODIFY_NOT_ALLOWED_FOR_EXAM="考试期间,禁止修改帐号信息。";
   $MSG_MAIL_NOT_ALLOWED_FOR_EXAM="考试期间,内邮禁用。";
   $MSG_LOAD_TEMPLATE_CONFIRM="是否加载默认模板?\\n 如果选择是，当前代码将被覆盖!";
   
@@ -157,6 +161,11 @@ $MSG_Compile_OK="人品问题-愚人节快乐";
   $MSG_PRINT_PENDING="提交成功,待打印";
   $MSG_PRINT_WAITING="请耐心等候，不要重复提交相同的打印任务";
 
+  $MSG_COLOR="颜色";
+  $MSG_BALLOON="气球";
+  $MSG_BALLOON_DONE="气球已发放";
+  $MSG_BALLOON_PENDING="气球待发放";
+
   $MSG_HELP_SEEOJ="跳转回到前台";
   $MSG_HELP_ADD_NEWS="添加首页显示的新闻";
   $MSG_HELP_NEWS_LIST="管理已经发布的新闻";
@@ -169,7 +178,7 @@ $MSG_Compile_OK="人品问题-愚人节快乐";
   $MSG_HELP_SETMESSAGE="设置滚动公告内容";
   $MSG_HELP_SETPASSWORD="重设指定用户的密码，对于管理员帐号需要先降级为普通用户才能修改。";
   $MSG_HELP_REJUDGE="重判指定的题目、提交或比赛。";
-  $MSG_HELP_ADD_PRIVILEGE="给指定用户增加权限，包括管理员、题目添加者、比赛组织者、比赛参加者、代码查看者、手动判题、远程判题等权限。";
+  $MSG_HELP_ADD_PRIVILEGE="给指定用户增加权限，包括管理员、题目添加者、比赛组织者、比赛参加者、代码查看者、手动判题、远程判题、打印员、气球发放员等权限。";
   $MSG_HELP_PRIVILEGE_LIST="查看已有的特殊权限列表、进行删除操作。";
   $MSG_HELP_GIVESOURCE="将导入系统的标程赠与指定帐号，用于训练后辅助未通过的人学习参考。";
   $MSG_HELP_EXPORT_PROBLEM="将系统中的题目以fps.xml文件的形式导出。";
@@ -187,5 +196,8 @@ $MSG_Compile_OK="人品问题-愚人节快乐";
   
   $MSG_HELP_MORE_TESTDATA_LATER="更多组测试数据，请在题目添加完成后补充"; 
   $MSG_HELP_SPJ="特殊裁判的使用，请参考<a href='https://cn.bing.com/search?q=hustoj+special+judge' target='_blank'>搜索hustoj special judge</a>"; 
-  
+  $MSG_HELP_BALLOON_SCHOOL="打印，气球帐号的School字段用于过滤任务列表，例如填zjicm则只显示帐号为zjicm开头的任务";
+
+  $MSG_WARNING_LOGIN_FROM_DIFF_IP="从不同的ip地址登录";
+  $MSG_WARNING_DURING_EXAM_NOT_ALLOWED=" 在考试期间不被允许 ";
 ?>

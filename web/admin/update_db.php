@@ -87,7 +87,7 @@ $csql[9]="CREATE TABLE  `runtimeinfo` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 ";
 $tsql[10]="select pass_rate from solution";
-$csql[10]="ALTER TABLE `solution` ADD COLUMN `pass_rate` DECIMAL(2,2) UNSIGNED NOT NULL DEFAULT 0 AFTER `judgetime`;";
+$csql[10]="ALTER TABLE `solution` ADD COLUMN `pass_rate` DECIMAL(3,2) UNSIGNED NOT NULL DEFAULT 0 AFTER `judgetime`;";
 
 $csql[11]="";
 $tsql[11]="ALTER TABLE `users` MODIFY COLUMN `user_id` varchar(48) NOT NULL DEFAULT ''  COMMENT 'user_id';";
@@ -121,10 +121,10 @@ $csql[18]="CREATE TABLE  `custominput` (  `solution_id` int(11) NOT NULL DEFAULT
 
 $tsql[19]="ALTER TABLE `loginlog` ADD INDEX `user_time_index`(`user_id`, `time`);";
 $csql[19]="";
-$tsql[20]="select `password` from contest limit 1 ";
-$csql[20]="ALTER TABLE `contest` ADD `password` CHAR( 16 ) NOT NULL DEFAULT '' AFTER `langmask` ";
-$tsql[21]="select * from source_code_user limit 1 ";
-$csql[21]="create TABLE `source_code_user` like source_code ";
+$tsql[20]="ALTER TABLE `contest` ADD `password` CHAR( 16 ) NOT NULL DEFAULT '' AFTER `langmask` ";
+$csql[20]="";
+$tsql[21]="create TABLE `source_code_user` like source_code";
+$csql[21]="";
 
 $tsql[22]="insert into source_code_user select * from source_code where solution_id not in (select solution_id from source_code_user)  ";
 $csql[22]="";
@@ -147,6 +147,16 @@ $tsql[26]="CREATE TABLE  `printer` (
   `printer` CHAR(16) NOT NULL DEFAULT 'LOCAL',
   `content` text NOT NULL ,
   PRIMARY KEY (`printer_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;";
+$csql[27]="select 1 from balloon";
+$tsql[27]="CREATE TABLE  `balloon` (
+  `balloon_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` char(48) NOT NULL,
+  `sid` int(11) NOT NULL ,
+  `cid` int(11) NOT NULL ,
+  `pid` int(11) NOT NULL ,
+  `status` smallint(6) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`balloon_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;";
 
 if(isset($_POST['do'])){

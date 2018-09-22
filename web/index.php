@@ -8,6 +8,10 @@
 	require_once('./include/setlang.php');
 	$view_title= "Welcome To Online Judge";
  $result=false;	
+	if(isset($OJ_ON_SITE_CONTEST_ID)){
+		header("location:contest.php?cid=".$OJ_ON_SITE_CONTEST_ID);
+		exit();
+	}
 ///////////////////////////MAIN	
 	
 	$view_news="";
@@ -53,7 +57,10 @@ $sql=	"SELECT UNIX_TIMESTAMP(date(in_date))*1000 md,count(1) c FROM  (select * f
   	$sql="select avg(sp) sp from (select  count(1) sp,judgetime from solution where result>3 and judgetime>convert(now()-100,DATETIME)  group by judgetime order by sp) tt;";
   	$result=mysql_query_cache($sql);
   	$speed=$result[0][0]; 
+  }else{
+        $speed=$chart_data_all[0][1];
   }
+
 	
 
 
