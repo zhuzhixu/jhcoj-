@@ -5,6 +5,12 @@
   <meta http-equiv="Content-Language" content="zh-cn">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <title>Problem Add</title>
+  <link rel="stylesheet" href="../font/style.css" />
+  <style>
+    #changeDifficulty>span{
+      margin-left:-4px
+    }
+  </style>
 </head>
 <hr>
 
@@ -16,7 +22,9 @@
     exit(1);
   }
   echo "<center><h3>$MSG_ADD"."$MSG_PROBLEM</h3></center>";
-  include_once("kindeditor.php") ;
+  include_once("kindeditor.php");
+  $MSG_TYPE = "类型选择";
+  $MSG_DIFFICULTY = "难度选择";
 ?>
 
 <body leftmargin="30" >
@@ -90,7 +98,22 @@
             }?>
           </select>
         </p>
-
+        <p align=left>
+          <?php echo "<h4>".$MSG_TYPE."</h4>"?>  
+          <input type="text" name=type/>    
+        </p>  
+        <p align=left>
+          <?php echo "<h4>".$MSG_DIFFICULTY."</h4>"?>
+          <div id="changeDifficulty">
+            <span class="icon-star"></span>
+            <span class="icon-star"></span>
+            <span class="icon-star"></span>
+            <span class="icon-star"></span>
+            <span class="icon-star"></span>
+          </div>
+          <input type="button" id="resetDiff" value="难度重置"/>
+          <input type="number" name=difficulty style="display:none" id="difficulty"/>    
+        </p>
         <div align=center>
           <?php require_once("../include/set_post_key.php");?>
           <input type=submit value=Submit name=submit>
@@ -98,5 +121,46 @@
       </input>
     </form>
   </div>
+  <script>
+    var dom = document.getElementById('changeDifficulty');
+    var diff = document.getElementById('difficulty');
+    var resetDiff = document.getElementById('resetDiff')
+    var starDom = dom.getElementsByTagName('span');
+    starDom[0].style.color = 'green';
+    for(var i = 0; i < starDom.length; i++){
+      starDom[i].index = i;
+    }
+
+    function changeDifficulty(e) {
+      for(var i = 1; i < starDom.length; i++){
+        starDom[i].style.color = '';
+      }
+
+      for(var i = 1; i <= e.target.index; i++){
+        starDom[i].style.color = 'green';
+      }
+
+    }
+
+    function setChange(e) {
+      diff.value = e.target.index + 1;
+      dom.removeEventListener('mouseover', changeDifficulty, false);
+      dom.removeEventListener('click', setChange, false);
+    }
+
+    function reset(e){
+      for(var i = 1; i < starDom.length; i++){
+        starDom[i].style.color = '';
+      }
+      diff.value = 1;
+      dom.addEventListener('mouseover', changeDifficulty, false);
+      dom.addEventListener('click', setChange, false);
+    }
+
+
+    dom.addEventListener('mouseover', changeDifficulty, false);
+    dom.addEventListener('click', setChange, false);
+    resetDiff.addEventListener('click', reset, false);
+  </script>
 </body>
 </html>

@@ -43,10 +43,10 @@ $sql = "";
 if(isset($_GET['keyword']) && $_GET['keyword']!=""){
   $keyword = $_GET['keyword'];
   $keyword = "%$keyword%";
-  $sql = "SELECT `problem_id`,`title`,`accepted`,`in_date`,`defunct` FROM `problem` WHERE (problem_id LIKE ?) OR (title LIKE ?) OR (description LIKE ?) OR (source LIKE ?)";
+  $sql = "SELECT `problem_id`,`title`,`accepted`,`in_date`,`type`,`difficulty`,`defunct` FROM `problem` WHERE (problem_id LIKE ?) OR (title LIKE ?) OR (description LIKE ?) OR (source LIKE ?)";
   $result = pdo_query($sql,$keyword,$keyword,$keyword,$keyword);
 }else{
-  $sql = "SELECT `problem_id`,`title`,`accepted`,`in_date`,`defunct` FROM `problem` ORDER BY `problem_id` DESC LIMIT $sid, $idsperpage";
+  $sql = "SELECT `problem_id`,`title`,`accepted`,`in_date`,`type`,`difficulty`,`defunct` FROM `problem` ORDER BY `problem_id` DESC LIMIT $sid, $idsperpage";
   $result = pdo_query($sql);
 }
 ?>
@@ -77,15 +77,15 @@ echo "</select>";
       <td>TITLE</td>
       <td>AC</td>
       <td>UPDATE</td>
+      <td>TYPE</td>
+      <td>DIFFICULTY</td>
       <?php
       if(isset($_SESSION[$OJ_NAME.'_'.'administrator'])||isset($_SESSION[$OJ_NAME.'_'.'problem_editor'])){
         if(isset($_SESSION[$OJ_NAME.'_'.'administrator']))
           echo "<td>STATUS</td><td>DELETE</td>";
         echo "<td>EDIT</td><td>TESTDATA</td>";
-        echo "<td>DiFFICULTY</td>";
       }
       ?>
-      
     </tr>
     <?php
     foreach($result as $row){
@@ -94,6 +94,8 @@ echo "</select>";
         echo "<td><a href='../problem.php?id=".$row['problem_id']."'>".$row['title']."</a></td>";
         echo "<td>".$row['accepted']."</td>";
         echo "<td>".$row['in_date']."</td>";
+        echo "<td>".$row['type']."</td>";
+        echo "<td>".$row['difficulty']."</td>";
         if(isset($_SESSION[$OJ_NAME.'_'.'administrator'])||isset($_SESSION[$OJ_NAME.'_'.'problem_editor'])){
           if(isset($_SESSION[$OJ_NAME.'_'.'administrator'])){
             echo "<td><a href=problem_df_change.php?id=".$row['problem_id']."&getkey=".$_SESSION[$OJ_NAME.'_'.'getkey'].">".($row['defunct']=="N"?"<span titlc='click to reserve it' class=green>Available</span>":"<span class=red title='click to be available'>Reserved</span>")."</a><td>";
@@ -108,13 +110,12 @@ echo "</select>";
         echo "<td><a href='javascript:phpfm(".$row['problem_id'].");'>TestData</a>";
       }
     }
-    echo "<td>"."5";
     echo "</tr>";
   }
 ?>
     <tr>
       <td colspan=2 style="height:40px;">Checked to</td>
-      <td colspan=7>
+      <td colspan=8>
         <input type=submit name='problem2contest' value='New Contest'>
         <input type=submit name='enable' value='Available' onclick='$("form").attr("action","problem_df_change.php")'>
         <input type=submit name='disable' value='Reserved' onclick='$("form").attr("action","problem_df_change.php")'>
