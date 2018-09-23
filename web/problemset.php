@@ -1,4 +1,5 @@
 <?php 
+	echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"font/style.css\" />";
 	$OJ_CACHE_SHARE=false;
 	$cache_time=60;
 	require_once('./include/db_info.inc.php');
@@ -77,12 +78,12 @@ if(isset($_GET['search'])&&trim($_GET['search'])!=""){
 
 if (isset($_SESSION[$OJ_NAME.'_'.'administrator'])){
 	
-	$sql="SELECT `problem_id`,`title`,`source`,`submit`,`accepted` FROM `problem` WHERE $filter_sql ";
+	$sql="SELECT `problem_id`,`title`,`source`,`type`,`difficulty`,`submit`,`accepted` FROM `problem` WHERE $filter_sql ";
 	
 }
 else{
 	$now=strftime("%Y-%m-%d %H:%M",time());
-	$sql="SELECT `problem_id`,`title`,`source`,`submit`,`accepted` FROM `problem` ".
+	$sql="SELECT `problem_id`,`title`,`source`,`type`,`difficulty`,`submit`,`accepted` FROM `problem` ".
 	"WHERE `defunct`='N' and $filter_sql AND `problem_id` NOT IN(
 		SELECT  `problem_id` 
 		FROM contest c
@@ -109,22 +110,29 @@ $cnt=0;
 $view_problemset=Array();
 $i=0;
 foreach ($result as $row){
-	
+	$star = "";
+    for($j = 0; $j < $row['difficulty']; $j++){
+        $star .= "<span class=\"icon-star\" style=\"color: green\"></span>";
+    }
 	
 	$view_problemset[$i]=Array();
+
 	if (isset($sub_arr[$row['problem_id']])){
 		if (isset($acc_arr[$row['problem_id']])) 
 			$view_problemset[$i][0]="<div class='btn btn-success'>Y</div>";
 		else 
 			$view_problemset[$i][0]= "<div class='btn btn-danger'>N</div>";
 	}else{
-		$view_problemset[$i][0]= "<div class=none> </div>";
+		$view_problemset[$i][0]= "<div class=none></div>";
 	}
+
 	$view_problemset[$i][1]="<div class='center'>".$row['problem_id']."</div>";;
 	$view_problemset[$i][2]="<div class='left'><a href='problem.php?id=".$row['problem_id']."'>".$row['title']."</a></div>";;
-	$view_problemset[$i][3]="<div class='center'><nobr>".mb_substr($row['source'],0,8,'utf8')."</nobr></div >";
-	$view_problemset[$i][4]="<div class='center'><a href='status.php?problem_id=".$row['problem_id']."&jresult=4'>".$row['accepted']."</a></div>";
-	$view_problemset[$i][5]="<div class='center'><a href='status.php?problem_id=".$row['problem_id']."'>".$row['submit']."</a></div>";
+	$view_problemset[$i][3]="<div class='left'>".$row['type']."</div>";;
+	$view_problemset[$i][4]="<div class='left'>".$star."</div>";;
+	$view_problemset[$i][5]="<div class='center'><nobr>".mb_substr($row['source'],0,8,'utf8')."</nobr></div >";
+	$view_problemset[$i][6]="<div class='center'><a href='status.php?problem_id=".$row['problem_id']."&jresult=4'>".$row['accepted']."</a></div>";
+	$view_problemset[$i][7]="<div class='center'><a href='status.php?problem_id=".$row['problem_id']."'>".$row['submit']."</a></div>";
 	
 	
 	$i++;

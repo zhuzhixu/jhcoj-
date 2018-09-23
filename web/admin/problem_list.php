@@ -2,6 +2,8 @@
 require("admin-header.php");
 require_once("../include/set_get_key.php");
 
+echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"../font/style.css\" />";
+
 if(!(isset($_SESSION[$OJ_NAME.'_'.'administrator'])||isset($_SESSION[$OJ_NAME.'_'.'contest_creator'])||isset($_SESSION[$OJ_NAME.'_'.'problem_editor']))){
   echo "<a href='../loginpage.php'>Please Login First!</a>";
   exit(1);
@@ -43,8 +45,8 @@ $sql = "";
 if(isset($_GET['keyword']) && $_GET['keyword']!=""){
   $keyword = $_GET['keyword'];
   $keyword = "%$keyword%";
-  $sql = "SELECT `problem_id`,`title`,`accepted`,`in_date`,`type`,`difficulty`,`defunct` FROM `problem` WHERE (problem_id LIKE ?) OR (title LIKE ?) OR (description LIKE ?) OR (source LIKE ?)";
-  $result = pdo_query($sql,$keyword,$keyword,$keyword,$keyword);
+  $sql = "SELECT `problem_id`,`title`,`accepted`,`in_date`,`type`,`difficulty`,`defunct` FROM `problem` WHERE (problem_id LIKE ?) OR (title LIKE ?) OR (description LIKE ?) OR (source LIKE ?) OR (type LIKE ?) OR (difficulty LIKE ?)";
+  $result = pdo_query($sql,$keyword,$keyword,$keyword,$keyword,$keyword,$keyword);
 }else{
   $sql = "SELECT `problem_id`,`title`,`accepted`,`in_date`,`type`,`difficulty`,`defunct` FROM `problem` ORDER BY `problem_id` DESC LIMIT $sid, $idsperpage";
   $result = pdo_query($sql);
@@ -89,13 +91,17 @@ echo "</select>";
     </tr>
     <?php
     foreach($result as $row){
+      $star = "";
+      for($i = 0; $i < $row['difficulty']; $i++){
+        $star .= "<span class=\"icon-star\" style=\"color: green\"></span>";
+      }
       echo "<tr>";
         echo "<td>".$row['problem_id']." <input type=checkbox style='vertical-align:2px;' name='pid[]' value='".$row['problem_id']."'></td>";
         echo "<td><a href='../problem.php?id=".$row['problem_id']."'>".$row['title']."</a></td>";
         echo "<td>".$row['accepted']."</td>";
         echo "<td>".$row['in_date']."</td>";
         echo "<td>".$row['type']."</td>";
-        echo "<td>".$row['difficulty']."</td>";
+        echo "<td>$star</td>";
         if(isset($_SESSION[$OJ_NAME.'_'.'administrator'])||isset($_SESSION[$OJ_NAME.'_'.'problem_editor'])){
           if(isset($_SESSION[$OJ_NAME.'_'.'administrator'])){
             echo "<td><a href=problem_df_change.php?id=".$row['problem_id']."&getkey=".$_SESSION[$OJ_NAME.'_'.'getkey'].">".($row['defunct']=="N"?"<span titlc='click to reserve it' class=green>Available</span>":"<span class=red title='click to be available'>Reserved</span>")."</a><td>";
