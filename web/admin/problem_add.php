@@ -65,6 +65,7 @@ if(get_magic_quotes_gpc()){
   $source = stripslashes($source);
   $spj = stripslashes($spj);
   $source = stripslashes($source);
+  $type = stripslashes($type);
 }
 
 $title = RemoveXSS($title);

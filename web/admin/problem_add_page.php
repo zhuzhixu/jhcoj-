@@ -100,7 +100,7 @@
         </p>
         <p align=left>
           <?php echo "<h4>".$MSG_TYPE."</h4>"?>  
-          <input type="text" name=type/>    
+          <input type="text" name=type />    
         </p>  
         <p align=left>
           <?php echo "<h4>".$MSG_DIFFICULTY."</h4>"?>
