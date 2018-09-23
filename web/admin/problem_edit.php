@@ -2,6 +2,17 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <title>Edit Problem</title>
+  <link rel="stylesheet" href="../font/style.css" />
+  <style>
+    #changeDifficulty>span{
+      margin-left:-4px;
+      
+    }
+
+    #changeDifficulty{
+      display: inline-block;
+    }
+  </style>
 </head>
 <hr>
 
@@ -77,9 +88,27 @@ include_once("kindeditor.php") ;
           <?php echo "<h4>".$MSG_SOURCE."</h4>"?>
           <textarea name=source style="width:100%;" rows=1><?php echo htmlentities($row['source'],ENT_QUOTES,"UTF-8")?></textarea><br><br>
         </p>
+        <p align=left>
+          <?php $MSG_TYPE = "类型选择";  echo "<h4>".$MSG_TYPE."</h4>"?>  
+          <input type="text" name="type"  value = <?php echo htmlentities($row['type'],ENT_QUOTES,"UTF-8")?> />    
+        </p>  
+        <p align=left>
+          <?php  echo "<h4>".$MSG_DIFFICULTY."</h4>"?>
+          <section id="diffContianer">
+            <div id="changeDifficulty">
+              <span class="icon-star"></span>
+              <span class="icon-star"></span>
+              <span class="icon-star"></span>
+              <span class="icon-star"></span>
+              <span class="icon-star"></span>
+            </div>
+          </section>
+          <input type="button" id="resetDiff" value="难度重置"/>
+          <input type="number" name="difficulty" style="display:none" id="difficulty"/>    
+        </p>
         <div align=center>
           <?php require_once("../include/set_post_key.php");?>
-          <input type=submit value=Submit name=submit>
+          <input type="submit" value="Submit" name="submit">
         </div>
       </input>
     </form>
@@ -119,6 +148,9 @@ include_once("kindeditor.php") ;
       $source=$_POST['source'];
       $spj=$_POST['spj'];
 
+      $type = $_POST['type'];
+      $difficulty = $_POST['difficulty'];
+
       if(get_magic_quotes_gpc()){
         $title = stripslashes($title);
         $time_limit = stripslashes($time_limit);
@@ -134,6 +166,8 @@ include_once("kindeditor.php") ;
         $source = stripslashes($source); 
         $spj = stripslashes($spj);
         $source = stripslashes($source);
+        $type = stripslashes($type);
+        $difficulty = intval($difficulty);
       }
 
       $title=($title);
@@ -143,8 +177,10 @@ include_once("kindeditor.php") ;
       $hint=RemoveXSS($hint);
       $basedir=$OJ_DATA."/$id";
 
-      echo "Sample data file Updated!<br>";
 
+      
+      echo "Sample data file Updated!<br>";
+      echo "".is_string($type);
       if($sample_input&&file_exists($basedir."/sample.in")){
         //mkdir($basedir);
         $fp=fopen($basedir."/sample.in","w");
@@ -159,14 +195,67 @@ include_once("kindeditor.php") ;
       $spj=intval($spj);
   
       $sql="UPDATE `problem` set `title`=?,`time_limit`=?,`memory_limit`=?,
-                   `description`=?,`input`=?,`output`=?,`sample_input`=?,`sample_output`=?,`hint`=?,`source`=?,`spj`=?,`in_date`=NOW()
+                   `description`=?,`input`=?,`output`=?,`sample_input`=?,`sample_output`=?,`hint`=?,`source`=?,`spj`=?,`type`=?,`difficulty`=?,`in_date`=NOW()
             WHERE `problem_id`=?";
 
-      @pdo_query($sql,$title,$time_limit,$memory_limit,$description,$input,$output,$sample_input,$sample_output,$hint,$source,$spj,$id) ;
+      @pdo_query($sql,$title,$time_limit,$memory_limit,$description,$input,$output,$sample_input,$sample_output,$hint,$source,$spj,$type,$difficulty,$id) ;
       echo "Edit OK!";
       echo "<a href='../problem.php?id=$id'>See The Problem!</a>";
     }
     ?>
   </div>
-</body>
-</html>    
+  <?php echo 
+   "<script>
+    var dom = document.getElementById('changeDifficulty');
+    var diff = document.getElementById('difficulty');
+    var resetDiff = document.getElementById('resetDiff')
+    var starDom = dom.getElementsByTagName('span');
+
+    function init(){
+      for(var i = 0; i < ".$row['difficulty']."; i++){
+        starDom[i].style.color = \"green\";
+      }
+    }
+
+    init();
+
+
+    for(var i = 0; i < starDom.length; i++){
+      starDom[i].index = i;
+    }
+
+    function changeDifficulty(e) {
+      for(var i = 0; i < starDom.length; i++){
+        starDom[i].style.color = '';
+      }
+
+      for(var i = 0; i <= e.target.index; i++){
+        starDom[i].style.color = 'green';
+      }
+
+    }
+
+    function setChange(e) {
+      diff.value = e.target.index + 1;
+      dom.removeEventListener('mouseover', changeDifficulty, false);
+      dom.removeEventListener('click', setChange, false);
+    }
+
+    function reset(e){
+      for(var i = 0; i < starDom.length; i++){
+        starDom[i].style.color = '';
+      }
+      init();
+      diff.value = ".$row['difficulty'].";
+      dom.addEventListener('mouseover', changeDifficulty, false);
+      dom.addEventListener('click', setChange, false);
+    }
+
+    dom.addEventListener('mouseover', changeDifficulty, false);
+    dom.addEventListener('click', setChange, false);
+    resetDiff.addEventListener('click', reset, false);
+
+  </script>" ?>
+  </body>
+  </html>
+   
