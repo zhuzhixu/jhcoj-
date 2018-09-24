@@ -100,7 +100,8 @@ include_once("kindeditor.php") ;
         <p align=left>
           <?php $MSG_TYPE = "类型选择";  echo "<h4>".$MSG_TYPE."</h4>"?>  
           <input id= "chooseType" type="text" name="type"  value = <?php echo htmlentities($row['type'],ENT_QUOTES,"UTF-8")?> />    
-          <?php 
+          <?php
+          $difficulty = intval($row['difficulty']); 
           echo "
             
             <span class=\"tag label label-info\"    >线性结构</span>
@@ -120,8 +121,12 @@ include_once("kindeditor.php") ;
           ?>
         </p>  
         <p align=left>
+
+
+
+          
           <?php $MSG_TYPE = "难度选择";  echo "<h4>".$MSG_TYPE."</h4>"?>  
-          <select name = 'difficulty'>
+          <select id="select" name = 'difficulty'>
             <option value=0>0</option>
             <option value=1>1</option>
             <option value=2>2</option>
@@ -256,6 +261,10 @@ include_once("kindeditor.php") ;
         type.value =  e.target.innerText; 
       }
     }
+
+            var num = $difficulty;
+            var select = document.getElementById(\"select\").getElementsByTagName(\"option\");
+            select[num].selected = true;
   
   </script>" ?>
   </body>
