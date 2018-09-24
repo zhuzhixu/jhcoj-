@@ -3,6 +3,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <title>Edit Problem</title>
   <link rel="stylesheet" href="../font/style.css" />
+  <link rel="stylesheet" href="../template/bs3/bootstrap.min.css" />
+  <link rel="stylesheet" href="../template/bs3/bootstrap-theme.min.css" />
+ 
+
+  
   <style>
     #changeDifficulty>span{
       margin-left:-4px;
@@ -90,21 +95,43 @@ include_once("kindeditor.php") ;
         </p>
         <p align=left>
           <?php $MSG_TYPE = "类型选择";  echo "<h4>".$MSG_TYPE."</h4>"?>  
-          <input type="text" name="type"  value = <?php echo htmlentities($row['type'],ENT_QUOTES,"UTF-8")?> />    
+          <input id= "chooseType" type="text" name="type"  value = <?php echo htmlentities($row['type'],ENT_QUOTES,"UTF-8")?> />    
+          <?php 
+          echo "
+            
+            <span id=\"tag1\" class=\"label label-info\">线性结构</span>
+            <span id=\"tag2\" class=\"label label-primary\">树形结构</span>
+            <span id=\"tag3\" class=\"label label-success\">堆</span>
+            <span id=\"tag4\" class=\"label label-info\">图</span>
+            <span id=\"tag5\" class=\"label label-warning\">排序算法</span>
+            <span id=\"tag6\" class=\"label label-danger\">动态规划</span>
+
+            <span id=\"tag7\" class=\"label label-info\">贪心算法</span>
+            <span id=\"tag8\" class=\"label label-primary\">搜索</span>
+            <span id=\"tag9\" class=\"label label-success\">字符串</span>
+            <span id=\"tag10\" class=\"label label-info\">基础练习</span>
+            <span id=\"tag11\" class=\"label label-warning\">数论</span>
+            <span id=\"tag12\" class=\"label label-danger\">其他</span>
+          "
+          ?>
         </p>  
         <p align=left>
-          <?php  echo "<h4>".$MSG_DIFFICULTY."</h4>"?>
-          <section id="diffContianer">
-            <div id="changeDifficulty">
-              <span class="icon-star"></span>
-              <span class="icon-star"></span>
-              <span class="icon-star"></span>
-              <span class="icon-star"></span>
-              <span class="icon-star"></span>
-            </div>
-          </section>
-          <input type="button" id="resetDiff" value="难度重置"/>
-          <input type="number" name="difficulty" style="display:none" id="difficulty"/>    
+         <?php $MSG_TYPE = "难度选择";  echo "<h4>".$MSG_TYPE."</h4>"?>  
+          <?php echo 
+              "<select name = 'difficulty'>
+              <option value = 0 >0</option>
+              <option value = 1>1</option>
+              <option value= 2>2</option>
+              <option value= 3>3</option>
+              <option value = 4>4</option>
+              <option value = 5>5</option>
+              <option value= 6>6</option>
+              <option value= 7>7</option>
+              <option value = 8>8</option>
+              <option value = 9>9</option>
+              <option value= 10>10</option>
+            </select>"
+          ?> 
         </p>
         <div align=center>
           <?php require_once("../include/set_post_key.php");?>
@@ -204,56 +231,51 @@ include_once("kindeditor.php") ;
     }
     ?>
   </div>
-  <?php echo 
+  <?php 
+  echo 
    "<script>
-    var dom = document.getElementById('changeDifficulty');
-    var diff = document.getElementById('difficulty');
-    var resetDiff = document.getElementById('resetDiff')
-    var starDom = dom.getElementsByTagName('span');
-
-    function init(){
-      for(var i = 0; i < ".$row['difficulty']."; i++){
-        starDom[i].style.color = \"green\";
-      }
-    }
-
-    init();
-
-
-    for(var i = 0; i < starDom.length; i++){
-      starDom[i].index = i;
-    }
-
-    function changeDifficulty(e) {
-      for(var i = 0; i < starDom.length; i++){
-        starDom[i].style.color = '';
-      }
-
-      for(var i = 0; i <= e.target.index; i++){
-        starDom[i].style.color = 'green';
-      }
-
-    }
-
+   var type = document.getElementById('chooseType');
+   var tag1 = document.getElementById('tag1');
+   var tag2 = document.getElementById('tag2');
+   var tag3 = document.getElementById('tag3');
+   var tag4 = document.getElementById('tag4');
+   var tag5 = document.getElementById('tag5');
+   var tag6 = document.getElementById('tag6');
+   var tag7 = document.getElementById('tag7');
+   var tag8 = document.getElementById('tag8');
+   var tag9 = document.getElementById('tag9');
+   var tag10 = document.getElementById('tag10');
+   var tag11 = document.getElementById('tag11');
+   var tag12 = document.getElementById('tag12');
+  
     function setChange(e) {
-      diff.value = e.target.index + 1;
-      dom.removeEventListener('mouseover', changeDifficulty, false);
-      dom.removeEventListener('click', setChange, false);
-    }
-
-    function reset(e){
-      for(var i = 0; i < starDom.length; i++){
-        starDom[i].style.color = '';
+      
+      
+      if(type.value === e.target.innerText)
+      {
+        type.value = \" \";
       }
-      init();
-      diff.value = ".$row['difficulty'].";
-      dom.addEventListener('mouseover', changeDifficulty, false);
-      dom.addEventListener('click', setChange, false);
+      else
+      {
+        type.value =  e.target.innerText; 
+      }
     }
 
-    dom.addEventListener('mouseover', changeDifficulty, false);
-    dom.addEventListener('click', setChange, false);
-    resetDiff.addEventListener('click', reset, false);
+    tag1.addEventListener('click', setChange, false);
+    tag2.addEventListener('click', setChange, false);
+    tag3.addEventListener('click', setChange, false);
+    tag4.addEventListener('click', setChange, false);
+    tag5.addEventListener('click', setChange, false);
+    tag6.addEventListener('click', setChange, false);
+    tag7.addEventListener('click', setChange, false);
+    tag8.addEventListener('click', setChange, false);
+    tag9.addEventListener('click', setChange, false);
+    tag10.addEventListener('click', setChange, false);
+    tag11.addEventListener('click', setChange, false);
+    tag12.addEventListener('click', setChange, false);
+
+
+    
 
   </script>" ?>
   </body>
