@@ -9,7 +9,7 @@
   font-style: normal;
 }
 
-[class^="icon-"], [class*=" icon-"] {
+[class^="icons-"], [class*=" icons-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
   font-family: 'icomoon' !important;
   speak: none;
@@ -24,12 +24,12 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-star-empty:before {
+.icons-star-empty:before {
   content: "\e905";
 }
-.icon-star-full:before {
+.icons-star-full:before {
   content: "\e901";
 }
-.icon-star-half:before {
+.icons-star-half:before {
   content: "\e902";
 }

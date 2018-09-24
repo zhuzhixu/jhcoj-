@@ -115,21 +115,21 @@ foreach ($result as $row)
       $fullStar = intval($row['difficulty'] / 2);
 	  for($j = 0; $j < $fullStar; $j++)
 	  {
-        $star .= "<span class=\"icon-star-full\" style=\"color: green\"></span>";
+        $star .= "<span class=\"icons-star-full\" style=\"color: green\"></span>";
       }
 	  if($row['difficulty'] % 2 != 0)
 	  {
-        $star .= "<span class=\"icon-star-half\" style=\"color: green\"></span>";
+        $star .= "<span class=\"icons-star-half\" style=\"color: green\"></span>";
 		for($j = $fullStar + 1; $j < 5; $j++)
 		{
-          $star .= "<span class=\"icon-star-empty\" style=\"color: green\"></span>";
+          $star .= "<span class=\"icons-star-empty\" style=\"color: green\"></span>";
         }
 	  }
 	   else
 	    {
 		for($j = $fullStar; $j < 5; $j++)
 		{
-          $star .= "<span class=\"icon-star-empty\" style=\"color: green\"></span>";
+          $star .= "<span class=\"icons-star-empty\" style=\"color: green\"></span>";
         }
       }
 	

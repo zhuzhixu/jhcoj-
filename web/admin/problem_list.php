@@ -4,6 +4,7 @@ require("admin-header.php");
 require_once("../include/set_get_key.php");
 
 
+
 if(!(isset($_SESSION[$OJ_NAME.'_'.'administrator'])||isset($_SESSION[$OJ_NAME.'_'.'contest_creator'])||isset($_SESSION[$OJ_NAME.'_'.'problem_editor']))){
   echo "<a href='../loginpage.php'>Please Login First!</a>";
   exit(1);
@@ -94,16 +95,16 @@ echo "</select>";
       $star = "";
       $fullStar = intval($row['difficulty'] / 2);
       for($i = 0; $i < $fullStar; $i++){
-        $star .= "<span class=\"icon-star-full\" style=\"color: green\"></span>";
+        $star .= "<span class=\"icons-star-full\" style=\"color: green\"></span>";
       }
       if($row['difficulty'] % 2 != 0){
-        $star .= "<span class=\"icon-star-half\" style=\"color: green\"></span>";
+        $star .= "<span class=\"icons-star-half\" style=\"color: green\"></span>";
         for($i = $fullStar + 1; $i < 5; $i++){
-          $star .= "<span class=\"icon-star-empty\" style=\"color: green\"></span>";
+          $star .= "<span class=\"icons-star-empty\" style=\"color: green\"></span>";
         }
       } else {
         for($i = $fullStar; $i < 5; $i++){
-          $star .= "<span class=\"icon-star-empty\" style=\"color: green\"></span>";
+          $star .= "<span class=\"icons-star-empty\" style=\"color: green\"></span>";
         }
       }
       
