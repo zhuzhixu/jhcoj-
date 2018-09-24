@@ -1,8 +1,8 @@
 <?php
+echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"../font/style.css\" />";
 require("admin-header.php");
 require_once("../include/set_get_key.php");
 
-echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"../font/style.css\" />";
 
 if(!(isset($_SESSION[$OJ_NAME.'_'.'administrator'])||isset($_SESSION[$OJ_NAME.'_'.'contest_creator'])||isset($_SESSION[$OJ_NAME.'_'.'problem_editor']))){
   echo "<a href='../loginpage.php'>Please Login First!</a>";
@@ -92,16 +92,28 @@ echo "</select>";
     <?php
     foreach($result as $row){
       $star = "";
-      for($i = 0; $i < $row['difficulty']; $i++){
-        $star .= "<span class=\"icon-star\" style=\"color: green\"></span>";
+      $fullStar = intval($row['difficulty'] / 2);
+      for($i = 0; $i < $fullStar; $i++){
+        $star .= "<span class=\"icon-star-full\" style=\"color: green\"></span>";
       }
+      if($row['difficulty'] % 2 != 0){
+        $star .= "<span class=\"icon-star-half\" style=\"color: green\"></span>";
+        for($i = $fullStar + 1; $i < 5; $i++){
+          $star .= "<span class=\"icon-star-empty\" style=\"color: green\"></span>";
+        }
+      } else {
+        for($i = $fullStar; $i < 5; $i++){
+          $star .= "<span class=\"icon-star-empty\" style=\"color: green\"></span>";
+        }
+      }
+      
       echo "<tr>";
         echo "<td>".$row['problem_id']." <input type=checkbox style='vertical-align:2px;' name='pid[]' value='".$row['problem_id']."'></td>";
         echo "<td><a href='../problem.php?id=".$row['problem_id']."'>".$row['title']."</a></td>";
         echo "<td>".$row['accepted']."</td>";
         echo "<td>".$row['in_date']."</td>";
         echo "<td>".$row['type']."</td>";
-        echo "<td>$star</td>";
+        echo "<td>".$star."</td>";
         if(isset($_SESSION[$OJ_NAME.'_'.'administrator'])||isset($_SESSION[$OJ_NAME.'_'.'problem_editor'])){
           if(isset($_SESSION[$OJ_NAME.'_'.'administrator'])){
             echo "<td><a href=problem_df_change.php?id=".$row['problem_id']."&getkey=".$_SESSION[$OJ_NAME.'_'.'getkey'].">".($row['defunct']=="N"?"<span titlc='click to reserve it' class=green>Available</span>":"<span class=red title='click to be available'>Reserved</span>")."</a><td>";

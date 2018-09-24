@@ -109,11 +109,29 @@ $view_total_page=intval($cnt+1);
 $cnt=0;
 $view_problemset=Array();
 $i=0;
-foreach ($result as $row){
+foreach ($result as $row)
+{
 	$star = "";
-    for($j = 0; $j < $row['difficulty']; $j++){
-        $star .= "<span class=\"icon-star\" style=\"color: green\"></span>";
-    }
+      $fullStar = intval($row['difficulty'] / 2);
+	  for($j = 0; $j < $fullStar; $j++)
+	  {
+        $star .= "<span class=\"icon-star-full\" style=\"color: green\"></span>";
+      }
+	  if($row['difficulty'] % 2 != 0)
+	  {
+        $star .= "<span class=\"icon-star-half\" style=\"color: green\"></span>";
+		for($j = $fullStar + 1; $j < 5; $j++)
+		{
+          $star .= "<span class=\"icon-star-empty\" style=\"color: green\"></span>";
+        }
+	  }
+	   else
+	    {
+		for($j = $fullStar; $j < 5; $j++)
+		{
+          $star .= "<span class=\"icon-star-empty\" style=\"color: green\"></span>";
+        }
+      }
 	
 	$view_problemset[$i]=Array();
 
