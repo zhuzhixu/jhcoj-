@@ -243,30 +243,53 @@ include_once("kindeditor.php") ;
   </script>
   <?php 
   echo 
-   "<script>
-    var type = document.getElementById('chooseType');
-    var tags = document.getElementsByClassName('tag');
-    for (var i = 0; i < tags.length; i++) {
-      tags[i].addEventListener('click', setChange, false);
-    }
+  "<script>
+  var type = document.getElementById('chooseType');
+  var tags = document.getElementsByClassName('tag');
+  var strings = [$type];
+  var flag = \"flag\";
+  for (var i = 0; i < tags.length; i++) 
+  {
+    tags[i].addEventListener('click', setChange, false);
+  }
 
-    function setChange(e) {
-      
-      if(type.value === e.target.innerText)
+  function setChange(e) 
+  {
+    strings.push(e.target.innerText);
+    if(flag==\"flag\")
+    {
+      for(var i = 0 ; i< strings.length ; i++)
       {
-        type.value = \" \";
-      }
-      else
-      {
-        type.value =  e.target.innerText; 
+        strings[i]= \"delete\";
       }
     }
+    for(var i = 0 ; i< strings.length -1 ; i++)
+    {
+      for(var j = i+1 ; j < strings.length ; j ++ )
+      {
+        if(strings[i] == strings[j])
+        {
+          strings[i] = \"delete\";
+          strings[j] = \"delete\";
+        }
+      }
+    }
+    var output = \"\";
+    for(var i = 0 ; i< strings.length; i++)
+    {
+      if(strings[i] != \"delete\")
+      {
+        output = output + strings[i] + \" \";    
+      }
+    }
+    type.value =  output;
+    flag = \"not flag\";
+  }
 
-            var num = $difficulty;
-            var select = document.getElementById(\"select\").getElementsByTagName(\"option\");
-            select[num].selected = true;
-  
-  </script>" ?>
+  var num = $difficulty;
+  var select = document.getElementById(\"select\").getElementsByTagName(\"option\");
+  select[num].selected = true;
+</script>" ?>
   </body>
   </html>
    
