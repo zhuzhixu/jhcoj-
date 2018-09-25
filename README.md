@@ -4,4 +4,5 @@
 ubuntu14 安装
 
 wget https://raw.githubusercontent.com/zhuzhixu/jhcoj-/master/install/install-ubuntu14.04.sh
+
 sudo bash install-ubuntu14.04.sh
