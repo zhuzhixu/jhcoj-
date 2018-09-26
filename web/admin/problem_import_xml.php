@@ -117,7 +117,7 @@ function import_fps($tempfile){
 		$spjcode = getValue ( $searchNode, 'spj' );
 		$spj = trim($spjcode)?1:0;
 		if(!hasProblem($title )){
-			$pid=addproblem ( $title, $time_limit, $memory_limit, $description, $input, $output, $sample_input, $sample_output, $hint, $source, $spj, $OJ_DATA );
+			$pid=addproblem ( $title, $time_limit, $memory_limit, $description, $input, $output, $sample_input, $sample_output, $hint, $source,$spj, $OJ_DATA , $type, $difficulty);
 			if($spid==0) $spid=$pid;
 			$basedir = "$OJ_DATA/$pid";
 			mkdir ( $basedir );
