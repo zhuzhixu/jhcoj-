@@ -99,7 +99,7 @@ include_once("kindeditor.php") ;
         </p>
         <p align=left>
           <?php $MSG_TYPE = "类型选择";  echo "<h4>".$MSG_TYPE."</h4>"?>  
-          <input id= "chooseType" type="text" name="type"  value = <?php echo htmlentities($row['type'],ENT_QUOTES,"UTF-8")?> />    
+          <input id= "chooseType" type="text" name="type"  value = <?php echo htmlentities($row['type'],ENT_QUOTES,"UTF-8")?> >    
           <?php
           $difficulty = intval($row['difficulty']); 
           echo "
