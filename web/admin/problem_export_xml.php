@@ -240,6 +240,9 @@ if (isset($_POST ['do'])||isset($_GET['cid'])) {
   <?php printTestCases($row['problem_id'],$OJ_DATA)?>
 <hint><![CDATA[<?php echo $row['hint']?>]]></hint>
 <source><![CDATA[<?php echo fixcdata($row['source'])?>]]></source>
+<type><![CDATA[<?php echo($row['type'])?>]]></type>
+<difficulty><![CDATA[<?php echo($row['difficulty'])?>]]></difficulty>
+
 <?php
 $pid=$row['problem_id'];
 for ($lang=0;$lang<count($language_ext);$lang++){

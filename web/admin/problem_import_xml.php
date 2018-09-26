@@ -110,6 +110,8 @@ function import_fps($tempfile){
 //		$test_output = getValue ( $searchNode, 'test_output' );
 		$hint = getValue ( $searchNode, 'hint' );
 		$source = getValue ( $searchNode, 'source' );
+		$type = getValue( $searchNode, 'type' );
+		$difficulty = getValue( $searchNode, 'difficulty');
 		
 		
 		$spjcode = getValue ( $searchNode, 'spj' );
