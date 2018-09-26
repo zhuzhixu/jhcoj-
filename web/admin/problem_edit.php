@@ -98,8 +98,8 @@ include_once("kindeditor.php") ;
           <textarea name=source style="width:100%;" rows=1><?php echo htmlentities($row['source'],ENT_QUOTES,"UTF-8")?></textarea><br><br>
         </p>
         <p align=left>
-          <?php $MSG_TYPE = "类型选择";  echo "<h4>".$MSG_TYPE."</h4>"?>  
-          <input id= "chooseType" type="text" name="type"  value = <?php echo htmlentities($row['type'],ENT_QUOTES,"UTF-8")?> >    
+          <?php $MSG_TYPE = "类型选择";  echo "<h4>".$MSG_TYPE."</h4>"?> 
+          <input id= "chooseType" type="text" name="type"  value = "<?php echo ($row['type']); ?> " >   
           <?php
           $difficulty = intval($row['difficulty']); 
           echo "
@@ -246,50 +246,24 @@ include_once("kindeditor.php") ;
   "<script>
   var type = document.getElementById('chooseType');
   var tags = document.getElementsByClassName('tag');
-  var strings = [$type];
-  var flag = \"flag\";
-  for (var i = 0; i < tags.length; i++) 
-  {
-    tags[i].addEventListener('click', setChange, false);
+
+  function setType(e){
+    if(type.value.indexOf(e.target.innerText) > -1){
+      type.value = type.value.replace(e.target.innerText + \" \", \"\");
+    } else {
+      type.value += e.target.innerText + \" \";
+    }
   }
 
-  function setChange(e) 
-  {
-    strings.push(e.target.innerText);
-    if(flag==\"flag\")
-    {
-      for(var i = 0 ; i< strings.length ; i++)
-      {
-        strings[i]= \"delete\";
-      }
-    }
-    for(var i = 0 ; i< strings.length -1 ; i++)
-    {
-      for(var j = i+1 ; j < strings.length ; j ++ )
-      {
-        if(strings[i] == strings[j])
-        {
-          strings[i] = \"delete\";
-          strings[j] = \"delete\";
-        }
-      }
-    }
-    var output = \"\";
-    for(var i = 0 ; i< strings.length; i++)
-    {
-      if(strings[i] != \"delete\")
-      {
-        output = output + strings[i] + \" \";    
-      }
-    }
-    type.value =  output;
-    flag = \"not flag\";
+  for(var i = 0; i < tags.length; i++){
+    tags[i].addEventListener('click', setType, false);
   }
 
   var num = $difficulty;
   var select = document.getElementById(\"select\").getElementsByTagName(\"option\");
   select[num].selected = true;
-</script>" ?>
+</script>";
+?>
   </body>
   </html>
    

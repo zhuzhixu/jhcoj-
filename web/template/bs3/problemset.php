@@ -62,9 +62,15 @@ for ($i=$start;$i<=$end;$i++){
 <th width='5'></th>
 <th width='20'  class='hidden-xs' ><?php echo $MSG_PROBLEM_ID?></th>
 <th><?php echo $MSG_TITLE?></th>
-<th><?php echo "类型"?></th>
+<?php 
+    if(isset($_SESSION[$OJ_NAME.'_'.'user_id'])=="admin" && !empty($_SESSION[$OJ_NAME.'_'.'user_id']))
+    {
+      echo "<th>类型</th>";
+    }      
+?>
+    
 <th><?php echo "难度"?></th>
-<th class='hidden-xs' width='10%'><?php echo $MSG_SOURCE?></th>
+<th class='hidden-xs' width='20%'><?php echo $MSG_SOURCE?></th>
 <th style="cursor:hand" width=60 ><?php echo $MSG_AC?></th>
 <th style="cursor:hand" width=60 ><?php echo $MSG_SUBMIT?></th>
 </tr>

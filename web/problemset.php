@@ -146,9 +146,14 @@ foreach ($result as $row)
 
 	$view_problemset[$i][1]="<div class='center'>".$row['problem_id']."</div>";;
 	$view_problemset[$i][2]="<div class='left'><a href='problem.php?id=".$row['problem_id']."'>".$row['title']."</a></div>";;
-	$view_problemset[$i][3]="<div class='left'>".$row['type']."</div>";;
+	
+	if(isset($_SESSION[$OJ_NAME.'_'.'user_id'])=="admin" && !empty($_SESSION[$OJ_NAME.'_'.'user_id']) && $_SESSION[$OJ_NAME.'_'.'user_id'] =="admin")
+	{
+		$view_problemset[$i][3]="<div class='left'>".$row['type']."</div>";;
+	}
+	
 	$view_problemset[$i][4]="<div class='left'>".$star."</div>";;
-	$view_problemset[$i][5]="<div class='center'><nobr>".mb_substr($row['source'],0,8,'utf8')."</nobr></div >";
+	$view_problemset[$i][5]="<div class='left'><nobr>".mb_substr($row['source'],0,8,'utf8')."</nobr></div >";
 	$view_problemset[$i][6]="<div class='center'><a href='status.php?problem_id=".$row['problem_id']."&jresult=4'>".$row['accepted']."</a></div>";
 	$view_problemset[$i][7]="<div class='center'><a href='status.php?problem_id=".$row['problem_id']."'>".$row['submit']."</a></div>";
 	
