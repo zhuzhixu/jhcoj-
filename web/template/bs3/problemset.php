@@ -63,7 +63,7 @@ for ($i=$start;$i<=$end;$i++){
 <th width='20'  class='hidden-xs' ><?php echo $MSG_PROBLEM_ID?></th>
 <th><?php echo $MSG_TITLE?></th>
 <?php 
-    if(isset($_SESSION[$OJ_NAME.'_'.'user_id'])=="admin" && !empty($_SESSION[$OJ_NAME.'_'.'user_id']))
+    if(isset($_SESSION[$OJ_NAME.'_'.'user_id']) && !empty($_SESSION[$OJ_NAME.'_'.'user_id']) && $_SESSION[$OJ_NAME.'_'.'user_id'] =="admin")
     {
       echo "<th>类型</th>";
     }      
