@@ -34,7 +34,6 @@ $page=intval($page);
 $section=8;
 $start=$page>$section?$page-$section:1;
 $end=$page+$section>$view_total_page?$view_total_page:$page+$section;
-
 for ($i=$start;$i<=$end;$i++){
  echo "<li class='".($page==$i?"active ":"")."page-item'>
         <a href='problemset.php?page=".$i."'>".$i."</a></li>";

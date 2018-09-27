@@ -7,12 +7,8 @@
   <title>Problem Add</title>
   <link rel="stylesheet" href="../font/style.css" />
   <style>
-     #changeDifficulty{
-      display: inline-block;
-    }
-
-    .tag{
-      cursor: pointer;
+    #changeDifficulty>span{
+      margin-left:-4px
     }
   </style>
 </head>
@@ -105,7 +101,7 @@
         <p align=left>
           <?php $MSG_TYPE = "类型选择";  echo "<h4>".$MSG_TYPE."</h4>"?>  
           <input id= "chooseType" type="text" name="type" />    
-          <?php
+          <?php 
           $difficulty = intval($row['difficulty']); 
           echo "
             
@@ -128,7 +124,7 @@
         <p align=left>
          <?php $MSG_TYPE = "难度选择";  echo "<h4>".$MSG_TYPE."</h4>"?>  
           <?php echo 
-              "<select name = 'difficulty' id=\"select\">
+              "<select name = 'difficulty' id='select'>
               <option value = 0 >0</option>
               <option value = 1>1</option>
               <option value = 2>2</option>
@@ -151,26 +147,26 @@
     </form>
   </div>
   <?php 
-  echo 
-  "<script>
-  var type = document.getElementById('chooseType');
-  var tags = document.getElementsByClassName('tag');
+echo 
+"<script>
+var type = document.getElementById('chooseType');
+var tags = document.getElementsByClassName('tag');
 
-  function setType(e){
-    if(type.value.indexOf(e.target.innerText) > -1){
-      type.value = type.value.replace(e.target.innerText + \" \", \"\");
-    } else {
-      type.value += e.target.innerText + \" \";
-    }
+function setType(e){
+  if(type.value.indexOf(e.target.innerText) > -1){
+    type.value = type.value.replace(e.target.innerText + \" \", \"\");
+  } else {
+    type.value += e.target.innerText + \" \";
   }
+}
 
-  for(var i = 0; i < tags.length; i++){
-    tags[i].addEventListener('click', setType, false);
-  }
+for(var i = 0; i < tags.length; i++){
+  tags[i].addEventListener('click', setType, false);
+}
 
-  var num = $difficulty;
-  var select = document.getElementById(\"select\").getElementsByTagName(\"option\");
-  select[num].selected = true;
+var num = $difficulty;
+var select = document.getElementById(\"select\").getElementsByTagName(\"option\");
+select[num].selected = true;
 </script>";
 ?>
 </body>
