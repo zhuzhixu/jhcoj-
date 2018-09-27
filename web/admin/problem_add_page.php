@@ -7,8 +7,12 @@
   <title>Problem Add</title>
   <link rel="stylesheet" href="../font/style.css" />
   <style>
-    #changeDifficulty>span{
-      margin-left:-4px
+     #changeDifficulty{
+      display: inline-block;
+    }
+
+    .tag{
+      cursor: pointer;
     }
   </style>
 </head>
@@ -101,29 +105,30 @@
         <p align=left>
           <?php $MSG_TYPE = "类型选择";  echo "<h4>".$MSG_TYPE."</h4>"?>  
           <input id= "chooseType" type="text" name="type" />    
-          <?php 
+          <?php
+          $difficulty = intval($row['difficulty']); 
           echo "
             
-            <span id=\"tag1\" class=\"label label-info\">线性结构</span>
-            <span id=\"tag2\" class=\"label label-primary\">树形结构</span>
-            <span id=\"tag3\" class=\"label label-success\">堆</span>
-            <span id=\"tag4\" class=\"label label-info\">图</span>
-            <span id=\"tag5\" class=\"label label-warning\">排序算法</span>
-            <span id=\"tag6\" class=\"label label-danger\">动态规划</span>
+            <span class=\"tag label label-info\"    >线性结构</span>
+            <span class=\"tag label label-primary\" >树形结构</span>
+            <span class=\"tag label label-success\" >堆</span>
+            <span class=\"tag label label-info\"    >图</span>
+            <span class=\"tag label label-warning\" >排序算法</span>
+            <span class=\"tag label label-danger\"  >动态规划</span>
 
-            <span id=\"tag7\" class=\"label label-info\">贪心算法</span>
-            <span id=\"tag8\" class=\"label label-primary\">搜索</span>
-            <span id=\"tag9\" class=\"label label-success\">字符串</span>
-            <span id=\"tag10\" class=\"label label-info\">基础练习</span>
-            <span id=\"tag11\" class=\"label label-warning\">数论</span>
-            <span id=\"tag12\" class=\"label label-danger\">其他</span>
+            <span class=\"tag label label-info\"    >贪心算法</span>
+            <span class=\"tag label label-primary\" >搜索</span>
+            <span class=\"tag label label-success\" >字符串</span>
+            <span class=\"tag label label-info\"    >基础练习</span>
+            <span class=\"tag label label-warning\" >数论</span>
+            <span class=\"tag label label-danger\"  >其他</span>
           "
           ?>
         </p>  
         <p align=left>
          <?php $MSG_TYPE = "难度选择";  echo "<h4>".$MSG_TYPE."</h4>"?>  
           <?php echo 
-              "<select name = 'difficulty'>
+              "<select name = 'difficulty' id=\"select\">
               <option value = 0 >0</option>
               <option value = 1>1</option>
               <option value = 2>2</option>
@@ -147,50 +152,26 @@
   </div>
   <?php 
   echo 
-   "<script>
-   var type = document.getElementById('chooseType');
-   var tag1 = document.getElementById('tag1');
-   var tag2 = document.getElementById('tag2');
-   var tag3 = document.getElementById('tag3');
-   var tag4 = document.getElementById('tag4');
-   var tag5 = document.getElementById('tag5');
-   var tag6 = document.getElementById('tag6');
-   var tag7 = document.getElementById('tag7');
-   var tag8 = document.getElementById('tag8');
-   var tag9 = document.getElementById('tag9');
-   var tag10 = document.getElementById('tag10');
-   var tag11 = document.getElementById('tag11');
-   var tag12 = document.getElementById('tag12');
-  
-    function setChange(e) {
-      
-      
-      if(type.value === e.target.innerText)
-      {
-        type.value = \" \";
-      }
-      else
-      {
-        type.value =  e.target.innerText; 
-      }
+  "<script>
+  var type = document.getElementById('chooseType');
+  var tags = document.getElementsByClassName('tag');
+
+  function setType(e){
+    if(type.value.indexOf(e.target.innerText) > -1){
+      type.value = type.value.replace(e.target.innerText + \" \", \"\");
+    } else {
+      type.value += e.target.innerText + \" \";
     }
+  }
 
-    tag1.addEventListener('click', setChange, false);
-    tag2.addEventListener('click', setChange, false);
-    tag3.addEventListener('click', setChange, false);
-    tag4.addEventListener('click', setChange, false);
-    tag5.addEventListener('click', setChange, false);
-    tag6.addEventListener('click', setChange, false);
-    tag7.addEventListener('click', setChange, false);
-    tag8.addEventListener('click', setChange, false);
-    tag9.addEventListener('click', setChange, false);
-    tag10.addEventListener('click', setChange, false);
-    tag11.addEventListener('click', setChange, false);
-    tag12.addEventListener('click', setChange, false);
+  for(var i = 0; i < tags.length; i++){
+    tags[i].addEventListener('click', setType, false);
+  }
 
-
-    
-
-  </script>" ?>
+  var num = $difficulty;
+  var select = document.getElementById(\"select\").getElementsByTagName(\"option\");
+  select[num].selected = true;
+</script>";
+?>
 </body>
 </html>

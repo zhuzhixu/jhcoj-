@@ -9,11 +9,6 @@
 
   
   <style>
-    #changeDifficulty>span{
-      margin-left:-4px;
-      
-    }
-
     #changeDifficulty{
       display: inline-block;
     }
